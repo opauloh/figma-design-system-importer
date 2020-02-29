@@ -74,14 +74,14 @@ async function prepareWrite(type, file, path, name, format) {
     filePath += `.${format}`;
   } else if (type === 'component') {
     const SUFFIX = 'Styled';
-    let reactTemplate = await loadFile('templates/react.mjs', true);
+    let reactTemplate = await loadFile('templates/react.jsx', true);
     reactTemplate = reactTemplate.replace(/{{NAME}}/g, name);
     reactTemplate = reactTemplate.replace(/{{NAME_STYLED}}/g, `${name}${SUFFIX}`);
     fileContent = `${reactTemplate}`;
     filePath += `.${format}`;
   } else if (type === 'style') {
     const SUFFIX = 'Styled';
-    let cssTemplate = await loadFile('templates/styled.mjs', true);
+    let cssTemplate = await loadFile('templates/styled.jsx', true);
     cssTemplate = cssTemplate.replace(/{{NAME_CSS}}/g, `${name}Css`);
     cssTemplate = cssTemplate.replace(/{{NAME_STYLED}}/g, `${name}${SUFFIX}`);
     fileContent = `${cssTemplate}`;

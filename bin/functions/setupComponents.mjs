@@ -1,8 +1,11 @@
 import { writeFile } from './writeFile.mjs';
 import { convertHexToRgba } from './convertHexToRgba.mjs';
+//import { toPascalCase } from './toPascalCase.mjs';
 
 // Returns array of objects
 export function setupComponents(components, componentSheet, tokens) {
+  //console.log(componentSheet.children[0].absoluteBoundingBox); ---> { x: -287, y: -367, width: 480, height: 500 }
+
   const COMPONENTS = (() => {
     const _MATCHES = [];
 
@@ -27,12 +30,16 @@ export function setupComponents(components, componentSheet, tokens) {
   })();
 
   COMPONENTS.forEach(comp => {
+    const CSS = comp.css;
+    //const NAME = toPascalCase(comp.name);
+    const FOLDER = 'components'; //`components/${NAME}`;
+
     // Write React component
-    writeFile(comp.css, 'components', comp.name, 'component', 'mjs');
+    writeFile(CSS, FOLDER, comp.name, 'component', 'jsx');
     // Write Styled component
-    writeFile(comp.css, 'components', comp.name, 'style', 'mjs');
+    writeFile(CSS, FOLDER, comp.name, 'style', 'jsx');
     // Write CSS
-    writeFile(comp.css, 'components', comp.name, 'css', 'mjs');
+    writeFile(CSS, FOLDER, comp.name, 'css', 'mjs');
   });
 }
 
@@ -45,14 +52,15 @@ function inferCssFromComponent(component) {
   const fill = component.backgroundColor;
   if (fill) {
     const COLOR_STRING = convertHexToRgba(fill.r, fill.g, fill.b, fill.a);
-    temp += `background-color: ${COLOR_STRING};
+    temp += `
+background-color: ${COLOR_STRING};
 `;
   }
 
   // Set size
   temp += `width: ${component.absoluteBoundingBox.width}px;
-	height: ${component.absoluteBoundingBox.height}px;
-	`;
+height: ${component.absoluteBoundingBox.height}px;
+`;
 
   // Set borders
   temp += `border-radius: ${component.cornerRadius}px;
@@ -64,7 +72,7 @@ function inferCssFromComponent(component) {
       const style = component.children[0].style;
       temp += `font-family: '${style.fontFamily}';
 font-weight: ${style.fontWeight};
-font-size: ${style.fontSize};
+font-size: ${style.fontSize}px;
 letter-spacing: ${style.letterSpacing};
 text-align: ${style.textAlignHorizontal};
 line-height: ${style.lineHeightPx}px;
