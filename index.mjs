@@ -10,6 +10,7 @@ import { getFromApi } from './bin/functions/getFromApi.mjs';
 import { createPage } from './bin/functions/createPage.mjs';
 import { writeTokens } from './bin/functions/writeTokens.mjs';
 import { writeFile } from './bin/functions/writeFile.mjs';
+import { setupComponents } from './bin/functions/setupComponents.mjs';
 
 import { errorGetData } from './bin/meta/errors.mjs';
 
@@ -35,7 +36,14 @@ import { errorGetData } from './bin/meta/errors.mjs';
   // Write base Figma JSON
   writeFile(JSON.stringify(DATA), outputFolderBaseFile, outputFileName);
 
+  //console.log(DATA.document.children[2]);
+
   // Process tokens
-  const TOKENS = createPage(DATA.document.children);
-  writeTokens(TOKENS.children, CONFIG);
+  // const TOKENS = createPage(DATA.document.children);
+  // writeTokens(TOKENS.children, CONFIG);
+
+  const components = DATA.components;
+  const componentSheet = DATA.document.children[2];
+
+  setupComponents(components, componentSheet);
 })();

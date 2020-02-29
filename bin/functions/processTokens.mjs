@@ -19,11 +19,6 @@ import { errorProcessTokens } from '../meta/errors.mjs';
  * @throws {error} - When missing sheet or name
  */
 export function processTokens(sheet, name, settings) {
-  //console.log('||||||');
-  //console.log(sheet);
-  //console.log(name);
-  //console.log(settings);
-
   if (!sheet || !name) throw new Error(errorProcessTokens);
 
   const _NAME = name.toLowerCase();
