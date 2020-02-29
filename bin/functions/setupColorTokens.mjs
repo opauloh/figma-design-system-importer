@@ -1,6 +1,6 @@
 import { camelize } from './camelize.mjs';
 import { formatName } from './formatName.mjs';
-import { roundColorValue } from './roundColorValue.mjs';
+import { convertHexToRgba } from './convertHexToRgba.mjs';
 
 import {
   errorSetupColorTokensNoFrame,
@@ -26,13 +26,12 @@ export function setupColorTokens(colorFrame) {
   colorFrame.children.forEach(color => {
     if (!color.fills) throw new Error(errorSetupColorTokensNoFills);
 
-    const COLOR_STRING = `rgba(${roundColorValue(color.fills[0].color.r, 255)}, ${roundColorValue(
+    const COLOR_STRING = convertHexToRgba(
+      color.fills[0].color.r,
       color.fills[0].color.g,
-      255
-    )}, ${roundColorValue(color.fills[0].color.b, 255)}, ${roundColorValue(
-      color.fills[0].color.a,
-      1
-    )})`;
+      color.fills[0].color.b,
+      color.fills[0].color.a
+    );
 
     let normalizedName = camelize(color.name);
     normalizedName = formatName(normalizedName);

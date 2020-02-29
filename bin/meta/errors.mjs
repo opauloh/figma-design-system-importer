@@ -2,6 +2,9 @@ export const errorGetData = 'Could not retrieve any data. Are you missing a vali
 
 export const errorCamelize = 'No string provided to camelize()!';
 
+export const errorConvertHexToRgba =
+  'Missing one or more of red, green, blue and alpha in convertHexToRgba()!';
+
 export const errorCreateFolder = 'No directory specified for createFolder()!';
 
 export const errorCreatePage = 'No pages provided to createPage()!';
@@ -67,6 +70,7 @@ export const errorSetupSpacingTokensMissingProps =
   'Missing "name" or "absoluteBoundingBox" properties in spacing frame!';
 
 export const errorWriteFile = 'Missing required parameters to correctly run writeFile()!';
+export const errorWriteFileWrongType = 'Unsupported "type" passed to writeFile()!';
 
 export const errorWrite = 'Error while attempting to write file!';
 export const errorWriteTokens = 'Less than one token provided to writeTokens()!';

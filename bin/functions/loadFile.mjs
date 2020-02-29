@@ -23,8 +23,6 @@ export async function loadFile(path, isRaw = false) {
         return data;
       }
 
-      console.log('after', isRaw);
-
       const DATA = JSON.parse(data);
       resolve(DATA);
     });

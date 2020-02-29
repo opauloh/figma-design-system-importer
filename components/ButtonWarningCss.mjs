@@ -1,4 +1,4 @@
-const ButtonCss = `background-color: rgba(39, 174, 96, 1);
+const ButtonWarningCss = `background-color: rgba(242, 153, 74, 1);
 width: 300px;
 	height: 64px;
 	border-radius: 8px;
@@ -10,4 +10,4 @@ text-align: CENTER;
 line-height: 18.75px;
 `
 
-export default ButtonCss;
+export default ButtonWarningCss;

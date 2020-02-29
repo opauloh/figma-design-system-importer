@@ -1,7 +1,7 @@
 {
   "debugMode": false,
   "fontUnit": "rem",
-  "outputFileName": "figma.json",
+  "outputFileName": "figma",
   "outputFolderBaseFile": "figma",
   "outputFolderTokens": "tokens",
   "outputTokenFormat": "mjs",

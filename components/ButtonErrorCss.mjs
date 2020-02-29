@@ -1,4 +1,4 @@
-const ButtonCss = `background-color: rgba(39, 174, 96, 1);
+const ButtonErrorCss = `background-color: rgba(235, 87, 87, 1);
 width: 300px;
 	height: 64px;
 	border-radius: 8px;
@@ -8,6 +8,6 @@ font-size: 16;
 letter-spacing: 0;
 text-align: CENTER;
 line-height: 18.75px;
-`
+padding: 1.5rem 3.125rem;margin-bottom: 5rem;`
 
-export default ButtonCss;
+export default ButtonErrorCss;

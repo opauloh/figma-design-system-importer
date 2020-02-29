@@ -19,20 +19,23 @@ export function writeTokens(tokens, settings) {
   if (!(tokens.length > 0)) throw new Error(errorWriteTokens);
   if (!settings) throw new Error(errorWriteTokensNoSettings);
 
+  let processedTokens = [];
+
   tokens.forEach(token => {
     let tokenName = camelize(token.name);
     tokenName = formatName(tokenName);
 
     const PROCESSED_TOKEN = processTokens(token, tokenName, settings);
+    processedTokens.push({ [tokenName]: PROCESSED_TOKEN });
 
     writeFile(
       PROCESSED_TOKEN,
       settings.outputFolderTokens,
       tokenName,
-      true,
+      'token',
       settings.outputTokenFormat
     );
   });
 
-  return true;
+  return processedTokens;
 }
