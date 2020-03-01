@@ -31,35 +31,22 @@ export function parseCssFromDescription(desc, tokens) {
     replacedMatches.push(matches[1]);
   }
 
-  // TODO: Hardcoded for spacing, currently
-  console.log('replacedMatches', replacedMatches);
   replacedMatches.forEach(token => {
     const _TOKEN = token.slice(1, token.length);
-    console.log('tokens.length', tokens.length);
 
     tokens.forEach(frame => {
-      console.log('KEY?', Object.keys(frame[0]));
-      const KEY = Object.keys(frame[0]);
-      const _MATCH = Object.entries(KEY).find(item => {
+      const FRAME_NAME = Object.keys(frame);
+
+      const MATCH = Object.entries(frame[FRAME_NAME]).find(item => {
+        console.log('item', item, _TOKEN);
         if (item[0] === _TOKEN) {
           return item[1];
         }
       });
 
-      console.log(_MATCH);
+      if (!MATCH) return;
 
-      /*
-			if (!frame.spacing) return;
-
-      const _MATCH = Object.entries(frame.spacing).find(spacing => {
-        if (spacing[0] === _TOKEN) {
-          return spacing[1];
-        }
-			});
-			*/
-
-      const MATCH = _MATCH[1];
-      desc = desc.replace(token, MATCH); //desc += `${match}`;
+      desc = desc.replace(token, MATCH[1]);
     });
   });
 

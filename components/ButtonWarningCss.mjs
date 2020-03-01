@@ -9,6 +9,6 @@ font-size: 16px;
 letter-spacing: 0;
 text-align: CENTER;
 line-height: 18.75px;
-{{button}}margin-bottom: 5rem;color: white;border: 0;`
+{{button}}margin-bottom: 3.125rem;color: rgba(255, 255, 255, 1);border: 0;`
 
 export default ButtonWarningCss;
