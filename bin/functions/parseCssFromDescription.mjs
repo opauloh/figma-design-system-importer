@@ -35,17 +35,18 @@ export function parseCssFromDescription(desc, tokens) {
   console.log('replacedMatches', replacedMatches);
   replacedMatches.forEach(token => {
     const _TOKEN = token.slice(1, token.length);
+    console.log('tokens.length', tokens.length);
 
     tokens.forEach(frame => {
-      frame.forEach(f => {
-        const _MATCH = Object.entries(f).find(item => {
-          if (item[0] === _TOKEN) {
-            return item[1];
-          }
-        });
-
-        console.log(_MATCH);
+      console.log('KEY?', Object.keys(frame[0]));
+      const KEY = Object.keys(frame[0]);
+      const _MATCH = Object.entries(KEY).find(item => {
+        if (item[0] === _TOKEN) {
+          return item[1];
+        }
       });
+
+      console.log(_MATCH);
 
       /*
 			if (!frame.spacing) return;
