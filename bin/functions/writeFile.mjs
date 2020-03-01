@@ -64,6 +64,10 @@ async function write(filePath, fileContent) {
 
 async function prepareWrite(type, file, path, name, format) {
   let fileContent = ``;
+
+  // Clean name from any slashes
+  name = name.replace('/', '');
+
   let filePath = `${path}/${name}`;
 
   if (type === 'raw') {

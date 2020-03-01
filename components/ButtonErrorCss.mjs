@@ -9,6 +9,6 @@ font-size: 16px;
 letter-spacing: 0;
 text-align: CENTER;
 line-height: 18.75px;
-margin-bottom: 5rem;color: white;border: 0;`
+{{button}}margin-bottom: 5rem;color: white;border: 0;`
 
 export default ButtonErrorCss;
