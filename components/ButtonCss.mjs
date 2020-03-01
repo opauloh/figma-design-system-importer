@@ -9,6 +9,6 @@ font-size: 16px;
 letter-spacing: 0;
 text-align: CENTER;
 line-height: 18.75px;
-{{button}}margin-bottom: 5rem;color: white;border: 0;@media query and (max-width:px) { 1024 {background-color: rebeccapurple;}:hover {font-color: red;}`
+{{button}}margin-bottom: 5rem;color: white;border: 0;@media query and (max-width: 1024px) {background-color: rebeccapurple;}:hover {font-color: red;}`
 
 export default ButtonCss;

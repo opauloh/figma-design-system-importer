@@ -9,6 +9,6 @@ font-size: 16px;
 letter-spacing: 0;
 text-align: LEFT;
 line-height: 18.75px;
-{{div}}@media query and (min-width:px) { 768 {width: 50%}`
+{{div}}@media query and (min-width: 1024px) {width: 50%}@media query and (max-width: 1024px) {width: 100%}`
 
 export default ModalCss;
