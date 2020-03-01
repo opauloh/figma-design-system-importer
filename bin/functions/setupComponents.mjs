@@ -22,13 +22,17 @@ export function setupComponents(components, componentSheet, tokens) {
         const ID = component.id;
         let css = inferCssFromComponent(component);
         if (components[ID]) {
-          css += parseCssFromDescription(components[ID].description, tokens);
+          const { cssString, componentMetadata } = parseCssFromDescription(
+            components[ID].description,
+            tokens
+          );
+
+          css += cssString;
+
+          newComponent.componentMetadata = componentMetadata;
         }
 
-        newComponent.css = css; //components[ID].description;
-        //console.log('Component CSS:\n', newComponent.css);
-
-        //console.log(newComponent);
+        newComponent.css = css;
 
         _MATCHES.push(newComponent);
       });
@@ -45,8 +49,11 @@ export function setupComponents(components, componentSheet, tokens) {
     // Write React component
     writeFile(CSS, FOLDER, comp.name, 'component', 'jsx');
     // Write Styled component
-    writeFile(CSS, FOLDER, comp.name, 'style', 'jsx');
+    // Pass metadata
+    writeFile(CSS, FOLDER, comp.name, 'style', 'jsx', comp.componentMetadata);
     // Write CSS
     writeFile(CSS, FOLDER, comp.name, 'css', 'mjs');
+    // Write Storybook component
+    //writeFile(CSS, FOLDER, comp.name, 'storybook', 'js');
   });
 }

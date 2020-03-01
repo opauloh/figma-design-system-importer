@@ -9,8 +9,15 @@ import { replaceMediaQuery } from './replaceMediaQuery.mjs';
 export function parseCssFromDescription(desc, tokens) {
   if (desc === '') return '';
 
+  let componentMetadata = {
+    element: 'div'
+  };
+
   // Remove newlines
   desc = desc.replace(/\n/gi, '');
+
+  // Find and replace elements
+  if (desc.match(/\{\{(.*?)\}\}/)) componentMetadata.element = desc.match(/\{\{(.*?)\}\}/)[1];
 
   // Fix media queries
   if (desc.includes('@min')) desc = replaceMediaQuery(desc, '@min');
@@ -46,7 +53,10 @@ export function parseCssFromDescription(desc, tokens) {
     });
   });
 
-  return desc;
+  return {
+    cssString: desc,
+    componentMetadata
+  };
 }
 
 /*

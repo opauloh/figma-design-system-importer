@@ -6,7 +6,7 @@ import {{NAME_CSS}} from './{{NAME_CSS}}.mjs'
 // import fontSizes from 'tokens/fontSizes.mjs';
 
 // TODO: Set element with code, now it's hardcoded as a button
-const {{NAME_STYLED}} = styled.button`
+const {{NAME_STYLED}} = styled.{{ELEMENT}}`
 	${{{NAME_CSS}}};
   width: 100%;
 `;

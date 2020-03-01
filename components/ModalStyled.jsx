@@ -6,7 +6,7 @@ import ModalCss from './ModalCss.mjs'
 // import fontSizes from 'tokens/fontSizes.mjs';
 
 // TODO: Set element with code, now it's hardcoded as a button
-const ModalStyled = styled.button`
+const ModalStyled = styled.div`
 	${ModalCss};
   width: 100%;
 `;
