@@ -5,7 +5,7 @@ import ButtonWarningStyled from './ButtonWarningStyled';
 
 //const ButtonWarning = props => <ButtonWarningStyled onClick={props.onClick}>{props.children}</ButtonWarningStyled>;
 
-const ButtonWarning = props => <ButtonWarningStyled onClick={props.onClick}>{props.children}></ButtonWarningStyled>;
+const ButtonWarning = props => <ButtonWarningStyled onClick={props.onClick}>{props.children}>undefined</ButtonWarningStyled>;
 
 ButtonWarning.propTypes = {
   onClick: PropTypes.func.isRequired

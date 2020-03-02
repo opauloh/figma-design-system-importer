@@ -2,18 +2,22 @@ import { convertHexToRgba } from './convertHexToRgba.mjs';
 
 export function inferCssFromComponent(component) {
   //if (component.type !== 'COMPONENT') return;
+  if (!component.children) return;
+  if (component.children.length === 0) return;
 
   let temp = `
 .${component.name} {`;
 
   // Background color, single fill
-  const fill = component.backgroundColor;
-  if (fill) {
-    // TODO: Make sure the strings don't mess anything up!
-    const COLOR_STRING = convertHexToRgba(`${fill.r}`, `${fill.g}`, `${fill.b}`, `${fill.a}`);
-    temp += `
+  if (component.backgroundColor) {
+    const fill = component.backgroundColor;
+    if (fill) {
+      // TODO: Make sure the strings don't mess anything up!
+      const COLOR_STRING = convertHexToRgba(`${fill.r}`, `${fill.g}`, `${fill.b}`, `${fill.a}`);
+      temp += `
 background-color: ${COLOR_STRING};
 `;
+    }
   }
 
   // Set size

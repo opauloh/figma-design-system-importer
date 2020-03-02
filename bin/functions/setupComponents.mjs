@@ -26,26 +26,31 @@ export function setupComponents(components, componentSheet, tokens) {
         let markup = '';
 
         // DEMO: Only check modal
-        if (component.name === 'Modal') {
-          // Make recursive?
-          component.children.forEach(item => {
+        // Make recursive?
+
+        recurse(component);
+
+        // TODO: Does this go through all children on the same level, getting undefined in CSS?
+        function recurse(comp) {
+          comp.children.forEach(item => {
+            console.log('ITEM');
+            console.log(item);
             css += inferCssFromComponent(item);
 
-            /*
-            if (item.type.toLowerCase() === 'instance') {
-              console.log('this is an instance');
-              // ID of button will be 2612:8
-              console.log(item.children);
+            if (item.children) {
+              recurse(item);
             }
-
-            if (item.type.toLowerCase() === 'group') {
-              console.log('this is a group');
-						}
-						*/
           });
-
-          markup += generateHtml(css);
         }
+        /*
+        component.children.forEach(item => {
+          css += inferCssFromComponent(item);
+          //if (item.type.toLowerCase() === 'instance') { }
+          //if (item.type.toLowerCase() === 'group') { }
+				});
+				*/
+
+        markup += generateHtml(css);
 
         if (components[ID]) {
           const { cssString, metadata } = parseCssFromDescription(
