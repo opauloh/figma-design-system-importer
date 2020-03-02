@@ -1,9 +1,10 @@
 import { convertHexToRgba } from './convertHexToRgba.mjs';
 
 export function inferCssFromComponent(component) {
-  if (component.type !== 'COMPONENT') return;
+  //if (component.type !== 'COMPONENT') return;
 
-  let temp = ``;
+  let temp = `
+.${component.name} {`;
 
   // Background color, single fill
   const fill = component.backgroundColor;
@@ -16,13 +17,17 @@ background-color: ${COLOR_STRING};
   }
 
   // Set size
-  temp += `width: ${component.absoluteBoundingBox.width}px;
+  if (component.absoluteBoundingBox.width && component.absoluteBoundingBox.height) {
+    temp += `width: ${component.absoluteBoundingBox.width}px;
 height: ${component.absoluteBoundingBox.height}px;
 `;
+  }
 
-  // Set borders
-  temp += `border-radius: ${component.cornerRadius}px;
-`; //${component.rectangleCornerRadii}`;
+  // Set borders, ${component.rectangleCornerRadii}`
+  if (component.cornerRadius) {
+    temp += `border-radius: ${component.cornerRadius}px;
+`;
+  }
 
   // DEMO
   // Set text styling on base component
@@ -42,6 +47,11 @@ line-height: ${style.lineHeightPx}px;
 
   // This is to avoid failure if temp is empty
   if (temp.length === 0) temp += ' ';
+
+  // Add closing bracket if not empty
+  if (temp.length > 1)
+    temp += `}
+`;
 
   return temp;
 }

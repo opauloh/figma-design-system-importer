@@ -38,8 +38,6 @@ import { errorGetData } from './bin/meta/errors.mjs';
   // JSON.stringify(DATA)
   writeFile(DATA, outputFolderBaseFile, outputFileName, 'raw', 'json');
 
-  //console.log(DATA.document.children[2]);
-
   // Process tokens
   const TOKEN_DATA = createPage(DATA.document.children);
   const TOKENS = writeTokens(TOKEN_DATA.children, CONFIG);

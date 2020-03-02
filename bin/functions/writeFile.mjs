@@ -65,6 +65,14 @@ async function prepareWrite(type, file, path, name, format, metadata) {
     } else return 'div';
   })();
 
+  const MARKUP = (() => {
+    if (metadata) {
+      if (metadata.markup) {
+        return metadata.markup;
+      } else return '';
+    } else return '';
+  })();
+
   let filePath = `${path}/${name}`;
 
   if (type === 'raw') {
@@ -78,6 +86,7 @@ async function prepareWrite(type, file, path, name, format, metadata) {
     let reactTemplate = await loadFile('templates/react.jsx', true);
     reactTemplate = reactTemplate.replace(/{{NAME}}/gi, name);
     reactTemplate = reactTemplate.replace(/{{NAME_STYLED}}/gi, `${name}${SUFFIX}`);
+    reactTemplate = reactTemplate.replace(/{{MARKUP}}/gi, MARKUP);
     fileContent = `${reactTemplate}`;
     filePath += `.${format}`;
   } else if (type === 'style') {

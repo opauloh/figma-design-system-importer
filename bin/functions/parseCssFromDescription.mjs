@@ -1,15 +1,9 @@
 import { replaceMediaQuery } from './replaceMediaQuery.mjs';
 
-/*
-		Replacement patterns:
-		@ - media query replacement
-		{{x}} - element replacement
-		# - token replacement
-	*/
 export function parseCssFromDescription(desc, tokens) {
   if (desc === '') return '';
 
-  let componentMetadata = {
+  let metadata = {
     element: 'div'
   };
 
@@ -17,7 +11,7 @@ export function parseCssFromDescription(desc, tokens) {
   desc = desc.replace(/\n/gi, '');
 
   // Find and replace elements
-  if (desc.match(/\{\{(.*?)\}\}/)) componentMetadata.element = desc.match(/\{\{(.*?)\}\}/)[1];
+  if (desc.match(/\{\{(.*?)\}\}/)) metadata.element = desc.match(/\{\{(.*?)\}\}/)[1];
 
   // Fix media queries
   if (desc.includes('@min')) desc = replaceMediaQuery(desc, '@min');
@@ -38,7 +32,6 @@ export function parseCssFromDescription(desc, tokens) {
       const FRAME_NAME = Object.keys(frame);
 
       const MATCH = Object.entries(frame[FRAME_NAME]).find(item => {
-        console.log('item', item, _TOKEN);
         if (item[0] === _TOKEN) {
           return item[1];
         }
@@ -50,28 +43,8 @@ export function parseCssFromDescription(desc, tokens) {
     });
   });
 
-  console.log(desc);
-
   return {
     cssString: desc,
-    componentMetadata
+    metadata
   };
 }
-
-/*
-// import colors from "tokens/colors.mjs";
-// ${colors.gray1}
-// Find color match and its token key
-tokens.forEach(frame => {
-	if (frame.colors) {
-		const _color = Object.entries(frame.colors).find(color => {
-			if (color[1] === COLOR_STRING) {
-				return color[0];
-			}
-		});
-
-		const color = _color[0];
-		temp += `${color}`;
-	}
-});
-*/
