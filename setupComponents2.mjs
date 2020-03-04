@@ -26,46 +26,59 @@ export function setupComponents(components, componentSheet, tokens) {
           let css = '';
           let markup = '';
 
-          recurseNew(component, markup);
+          //recurse(component, null, null, depth);
+
+          let elementStack = [];
+          let depth = 0;
+          let depthToLastChild = 0;
+
+          markup = recurseNew(component, elementStack, depth, markup);
 
           /* eslint-disable no-inner-declarations */
-          function recurseNew(item, html) {
-            console.log(html);
+          function recurseNew(item, elements, d, parent, html) {
+            if (parent) {
+              if (parent.children) {
+                console.log('Parent has children?', parent.children.length > 0);
+              }
+              depthToLastChild++;
+            }
 
-            const CHILD_COUNT = (() => {
+            const CHILD_LENGTH = (() => {
               if (item.children) {
                 return item.children.length;
               } else return 0;
             })();
 
+            console.log('\n');
+            console.log(item.id, item.name);
+            console.log('Elements length', elements.length, 'Children', CHILD_LENGTH);
+            console.log('Depth To Last Child', depthToLastChild);
+
             if (item.children) {
               item.children.forEach(x => {
-                console.log('\n', x.id, x.name, CHILD_COUNT, '\n');
                 const name = x.name.replace(/\//gi, '');
+                html += `<div class="${name}">`;
 
-                // Add new element
-                const newMarkup = `<div class="${name}>__ASDF__</div>`;
-                markup += newMarkup;
-
-                let z = markup;
-                z = z.replace(/__ASDF__/i, newMarkup);
-
-                // Set final HTML
-                //markup = z;
-
-                recurseNew(x, z);
-
-                /*
-                let z = html;
-                html.replace('a', '∞');
-                markup += `<div class="${name}">__ASDF__</div>`;
-								recurseNew(x, z);
-								*/
+                if (item.children) {
+                  elementStack.push('div');
+                  return recurseNew(x, elementStack, depthToLastChild, item, html);
+                }
               });
             } else {
               console.log('BOOOOM');
-              markup += `XXXX</div>`;
-              //markup.replace('__ASDF__', `<div class="${item.name}"></div>`);
+              const els = elements.reverse();
+
+              for (let z = 0; z < d; z++) {
+                html += `XXX</${els[z]}>`;
+                depthToLastChild--;
+                console.log('updated depthToLastChild', depthToLastChild);
+              }
+
+              console.log('html', html);
+
+              elementStack = [];
+              return html;
+              //depthToLastChild = 0;
             }
           }
 

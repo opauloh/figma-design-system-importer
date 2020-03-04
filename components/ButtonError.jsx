@@ -5,7 +5,7 @@ import ButtonErrorStyled from './ButtonErrorStyled';
 
 //const ButtonError = props => <ButtonErrorStyled onClick={props.onClick}>{props.children}</ButtonErrorStyled>;
 
-const ButtonError = props => <ButtonErrorStyled onClick={props.onClick}>{props.children}>undefined</ButtonErrorStyled>;
+const ButtonError = props => <ButtonErrorStyled onClick={props.onClick}>{props.children}><div class="Some kind of button"></ButtonErrorStyled>;
 
 ButtonError.propTypes = {
   onClick: PropTypes.func.isRequired

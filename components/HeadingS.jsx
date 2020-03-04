@@ -5,7 +5,7 @@ import HeadingSStyled from './HeadingSStyled';
 
 //const HeadingS = props => <HeadingSStyled onClick={props.onClick}>{props.children}</HeadingSStyled>;
 
-const HeadingS = props => <HeadingSStyled onClick={props.onClick}>{props.children}>undefined</HeadingSStyled>;
+const HeadingS = props => <HeadingSStyled onClick={props.onClick}>{props.children}><div class="HeadingS"></HeadingSStyled>;
 
 HeadingS.propTypes = {
   onClick: PropTypes.func.isRequired

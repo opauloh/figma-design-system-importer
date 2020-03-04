@@ -5,7 +5,7 @@ import ButtonStyled from './ButtonStyled';
 
 //const Button = props => <ButtonStyled onClick={props.onClick}>{props.children}</ButtonStyled>;
 
-const Button = props => <ButtonStyled onClick={props.onClick}>{props.children}>undefined</ButtonStyled>;
+const Button = props => <ButtonStyled onClick={props.onClick}>{props.children}><div class="Some kind of button"></ButtonStyled>;
 
 Button.propTypes = {
   onClick: PropTypes.func.isRequired

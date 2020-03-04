@@ -25,63 +25,51 @@ export function setupComponents(components, componentSheet, tokens) {
 
           let css = '';
           let markup = '';
+          let depth = 0;
+          let branchElements = 0;
+          let depthBeforeLastChild = 0;
+          let elementStack = [];
 
-          recurseNew(component, markup);
+          recurse(component, null, null, depth);
 
           /* eslint-disable no-inner-declarations */
-          function recurseNew(item, html) {
-            console.log(html);
-
-            const CHILD_COUNT = (() => {
-              if (item.children) {
-                return item.children.length;
-              } else return 0;
-            })();
-
-            if (item.children) {
-              item.children.forEach(x => {
-                console.log('\n', x.id, x.name, CHILD_COUNT, '\n');
-                const name = x.name.replace(/\//gi, '');
-
-                // Add new element
-                const newMarkup = `<div class="${name}>__ASDF__</div>`;
-                markup += newMarkup;
-
-                let z = markup;
-                z = z.replace(/__ASDF__/i, newMarkup);
-
-                // Set final HTML
-                //markup = z;
-
-                recurseNew(x, z);
-
-                /*
-                let z = html;
-                html.replace('a', '∞');
-                markup += `<div class="${name}">__ASDF__</div>`;
-								recurseNew(x, z);
-								*/
-              });
-            } else {
-              console.log('BOOOOM');
-              markup += `XXXX</div>`;
-              //markup.replace('__ASDF__', `<div class="${item.name}"></div>`);
-            }
-          }
-
-          console.log('markup', markup);
-
-          /*
           function recurse(comp, parentName, parentId, depth) {
             comp.children.forEach(item => {
               css += inferCssFromComponent(item);
-              let { html, createdElement } = createHtml(item); //generateHtml(css);
-              markup += html;
-            });
-					}
-					*/
 
-          /*
+              //markup += generateHtml(css);
+              let { html, createdElement } = createHtml(item);
+              markup += html;
+
+              elementStack[depth] = [createdElement];
+              elementStack[depth][branchElements] = [createdElement];
+
+              if (item.children) {
+                markup += `% REC @ D${depth}, B${branchElements}; ${createdElement} %`;
+                depth += 1;
+                depthBeforeLastChild += 1;
+                recurse(item, comp.name, comp.id, depth);
+              } else if (!item.children) {
+                //let name = comp.name.replace(/\//gi, '');
+                for (let x = 0; x < elementStack[depth][branchElements].length; x++) {
+                  markup += `% CLOSE ${elementStack[depth][branchElements][x]} @ D${depth} %`;
+                  markup += `</${elementStack[depth][branchElements][x]}>`;
+                }
+
+                if (depthBeforeLastChild > 0) {
+                  for (let d = 0; d < depth - depthBeforeLastChild; d++) {
+                    for (let z = 0; z < elementStack[depth][branchElements].length; z++) {
+                      markup += `% CLOSING PREV ${elementStack[depth][branchElements][d]} @ D${depth} %`;
+                      markup += `</${elementStack[depth][branchElements][d]}>`; //? no [d]?
+                    }
+                  }
+                }
+              } else {
+                console.log('ASDF ASDF ASDF');
+              }
+            });
+          }
+
           const ID = component.id;
 
           if (components[ID]) {
@@ -101,8 +89,7 @@ export function setupComponents(components, componentSheet, tokens) {
           newComponent.css = css;
           newComponent.metadata.markup = markup;
 
-					_MATCHES.push(newComponent);
-					*/
+          _MATCHES.push(newComponent);
         }
       });
     });
@@ -118,13 +105,13 @@ export function setupComponents(components, componentSheet, tokens) {
     const FOLDER = 'components';
 
     // Write React component
-    //writeFile(CSS, FOLDER, comp.name, 'component', 'jsx', comp.metadata);
+    writeFile(CSS, FOLDER, comp.name, 'component', 'jsx', comp.metadata);
 
     // Write Styled component, and pass metadata
-    //writeFile(CSS, FOLDER, comp.name, 'style', 'jsx', comp.metadata);
+    writeFile(CSS, FOLDER, comp.name, 'style', 'jsx', comp.metadata);
 
     // Write CSS
-    //writeFile(CSS, FOLDER, comp.name, 'css', 'mjs');
+    writeFile(CSS, FOLDER, comp.name, 'css', 'mjs');
 
     // Write Storybook component
     //writeFile(CSS, FOLDER, comp.name, 'storybook', 'js');

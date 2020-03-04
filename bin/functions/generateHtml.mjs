@@ -10,12 +10,12 @@ export function generateHtml(css) {
 
   let markup = '';
 
-  if (!x) return;
+  if (!x) return '';
 
   x.forEach(a => {
     //MATCHES.push(a.replace(/[.{]/gi, ''));
     const x = a.replace(/[.{]/gi, '');
-    markup += `<div class="${x}"></div>`;
+    markup += `<div class="${x}">`; //</div>
   });
 
   console.log('MATCHES', MATCHES);
