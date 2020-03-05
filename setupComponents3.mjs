@@ -26,13 +26,10 @@ export function setupComponents(components, componentSheet, tokens) {
           let css = '';
           let markup = '';
 
-          recurseNew(component, markup, 0);
+          recurseNew(component, markup);
 
           /* eslint-disable no-inner-declarations */
-          function recurseNew(item, html, childDepth) {
-            let _childDepth = childDepth;
-
-            console.log(childDepth);
+          function recurseNew(item, html) {
             console.log(html);
 
             const CHILD_COUNT = (() => {
@@ -56,9 +53,7 @@ export function setupComponents(components, componentSheet, tokens) {
                 // Set final HTML
                 //markup = z;
 
-                _childDepth++;
-
-                recurseNew(x, z, _childDepth);
+                recurseNew(x, z);
 
                 /*
                 let z = html;
