@@ -23,16 +23,44 @@ export function setupComponents(components, componentSheet, tokens) {
             ...component
           };
 
+          let cont = ``;
+
           let css = '';
           let markup = '';
 
-          recurseNew(component, markup, 0);
+          buildTree(frame.children, cont);
 
           /* eslint-disable no-inner-declarations */
-          function recurseNew(item, html, childDepth) {
-            let _childDepth = childDepth;
+          function buildTree(tree, container) {
+            tree.forEach(function(node) {
+              console.log('zzz', node.name);
+              /*
+              var el = `<${node.name}>`; //document.createElement(node.tag);
 
-            console.log(childDepth);
+              if (Array.isArray(node.children)) {
+                buildTree(node.children, el);
+              } else if (typeof node.content == 'object') {
+                console.log('zzz');
+                buildTree([node.content], el);
+              } else {
+                console.log('el', el);
+                el += `</${node.name}>`;
+                //el.innerHTML = node.content;
+              }
+
+							container += el; //container.appendChild(el);
+							*/
+            });
+
+            console.log('xxx', container);
+          }
+
+          //recurseNew(component, markup, 0);
+
+          function recurseNew(item, html, initialChildDepth) {
+            let _childDepth = initialChildDepth;
+
+            console.log('initialChildDepth', initialChildDepth, 'for', item.id, item.name);
             console.log(html);
 
             const CHILD_COUNT = (() => {
@@ -42,35 +70,35 @@ export function setupComponents(components, componentSheet, tokens) {
             })();
 
             if (item.children) {
+              function getChildNames() {
+                let names = ``;
+                item.children.forEach(n => (names += `${n.id} ${n.name}, `));
+                names = names.slice(0, names.length - 2);
+                return names;
+              }
+
+              console.log('Has', item.children.length, 'children:', getChildNames());
+
               item.children.forEach(x => {
-                console.log('\n', x.id, x.name, CHILD_COUNT, '\n');
+                console.log('\n', 'Child:', x.id, x.name, 'with child count:', CHILD_COUNT, '\n');
                 const name = x.name.replace(/\//gi, '');
 
-                // Add new element
-                const newMarkup = `<div class="${name}>__ASDF__</div>`;
+                const newMarkup = `<div class="${name}>`;
                 markup += newMarkup;
 
                 let z = markup;
                 z = z.replace(/__ASDF__/i, newMarkup);
 
-                // Set final HTML
-                //markup = z;
-
                 _childDepth++;
 
                 recurseNew(x, z, _childDepth);
-
-                /*
-                let z = html;
-                html.replace('a', '∞');
-                markup += `<div class="${name}">__ASDF__</div>`;
-								recurseNew(x, z);
-								*/
               });
             } else {
-              console.log('BOOOOM');
-              markup += `XXXX</div>`;
-              //markup.replace('__ASDF__', `<div class="${item.name}"></div>`);
+              console.log('||||| No more children');
+
+              for (let a = 0; a < initialChildDepth; a++) {
+                markup += `XXXX</div>`;
+              }
             }
           }
 
