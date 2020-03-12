@@ -28,12 +28,11 @@ export function setupComponents(components, componentSheet, tokens) {
           let css = '';
           let markup = '';
 
-          buildTree(frame.children, cont);
+          //buildTree(frame.children, cont);
 
           /* eslint-disable no-inner-declarations */
           function buildTree(tree, container) {
             tree.forEach(function(node) {
-              console.log('zzz', node.name);
               /*
               var el = `<${node.name}>`; //document.createElement(node.tag);
 
@@ -55,12 +54,14 @@ export function setupComponents(components, componentSheet, tokens) {
             console.log('xxx', container);
           }
 
-          //recurseNew(component, markup, 0);
+          let lastDepthBeforeChild = 0;
 
-          function recurseNew(item, html, initialChildDepth) {
+          recurseNew(component, markup, 0);
+
+          function recurseNew(item, html, initialChildDepth, lastDepthBeforeChild) {
             let _childDepth = initialChildDepth;
 
-            console.log('initialChildDepth', initialChildDepth, 'for', item.id, item.name);
+            //console.log('initialChildDepth', initialChildDepth, 'for', item.id, item.name);
             console.log(html);
 
             const CHILD_COUNT = (() => {
@@ -77,26 +78,32 @@ export function setupComponents(components, componentSheet, tokens) {
                 return names;
               }
 
-              console.log('Has', item.children.length, 'children:', getChildNames());
+              let _lastDepthBeforeChild = lastDepthBeforeChild;
+              _lastDepthBeforeChild = initialChildDepth;
+
+              //console.log('Has', item.children.length, 'children:', getChildNames());
 
               item.children.forEach(x => {
-                console.log('\n', 'Child:', x.id, x.name, 'with child count:', CHILD_COUNT, '\n');
+                //console.log('\n', 'Child:', x.id, x.name, 'with child count:', CHILD_COUNT, '\n');
                 const name = x.name.replace(/\//gi, '');
 
                 const newMarkup = `<div class="${name}>`;
                 markup += newMarkup;
 
                 let z = markup;
-                z = z.replace(/__ASDF__/i, newMarkup);
+                //z = z.replace(/__ASDF__/i, newMarkup);
 
                 _childDepth++;
 
-                recurseNew(x, z, _childDepth);
+                recurseNew(x, z, _childDepth, _lastDepthBeforeChild);
               });
             } else {
               console.log('||||| No more children');
+              console.log('initialChildDepth', initialChildDepth);
+              console.log('lastDepthBeforeChild', lastDepthBeforeChild);
+              console.log('calced distance', initialChildDepth - lastDepthBeforeChild);
 
-              for (let a = 0; a < initialChildDepth; a++) {
+              for (let a = 0; a < initialChildDepth - lastDepthBeforeChild; a++) {
                 markup += `XXXX</div>`;
               }
             }
