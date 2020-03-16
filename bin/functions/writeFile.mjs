@@ -39,7 +39,8 @@ async function write(file, path, name, isToken, format) {
   let filePath = `${path}/${name}`;
 
   if (isToken) {
-    fileContent = `const ${name} = ${JSON.stringify(file, null, ' ')}\n\nexport default ${name};`;
+    //fileContent = `const ${name} = ${JSON.stringify(file, null, ' ')}\n\nexport default ${name};`;
+    fileContent = `export default {\n  ${name}: \n${JSON.stringify(file, null, ' ')}\n}`;
     filePath += `.${format}`;
   }
 

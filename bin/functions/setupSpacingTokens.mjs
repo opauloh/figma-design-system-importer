@@ -25,6 +25,8 @@ export function setupSpacingTokens(spacingFrame, spacingUnit) {
   const SPACINGS = spacingFrame.children;
   const SPACING_OBJECT = {};
 
+  const SPACE_ARRAY = [];
+
   SPACINGS.forEach(spacing => {
     if (!spacing.name || !spacing.absoluteBoundingBox)
       throw new Error(errorSetupSpacingTokensMissingProps);
@@ -33,7 +35,13 @@ export function setupSpacingTokens(spacingFrame, spacingUnit) {
     normalizedName = formatName(normalizedName);
     const NORMALIZED_UNIT = normalizeUnits(spacing.absoluteBoundingBox.width, 'px', spacingUnit);
     SPACING_OBJECT[normalizedName] = NORMALIZED_UNIT;
+
+    SPACE_ARRAY.push(NORMALIZED_UNIT);
   });
+
+  SPACE_ARRAY.sort();
+  // TODO: Investigate if possible to use units with Styled System...
+  console.log('SPACE_ARRAY', SPACE_ARRAY);
 
   return SPACING_OBJECT;
 }

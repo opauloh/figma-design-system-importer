@@ -27,6 +27,7 @@ import { errorGetData } from './bin/meta/errors.mjs';
   // If there's no data or something went funky, eject
   if (!DATA || DATA.status === 403) throw new Error(errorGetData);
 
+  // Trash old files and set up folders
   await trash([`./${outputFolderTokens}`]);
   await trash([`./${outputFolderBaseFile}`]);
   await createFolder(outputFolderTokens);
