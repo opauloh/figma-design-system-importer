@@ -1,18 +1,16 @@
 {
-  "name": "figmagic",
+  "name": "@elasticontent/figma-react-design-system",
   "description": "Generate design tokens, export graphics, and extract design token-driven React components from your Figma documents. Inspired by Salesforce Theo.",
   "keywords": [
     "figma",
     "figma api",
     "design tokens",
     "tokens",
-    "design system",
-    "salesforce theo"
+    "design system"
   ],
-  "homepage": "https://www.figmagic.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mikaelvesavuori/figmagic.git"
+    "url": "https://github.com/opauloh/figma-react-design-system"
   },
   "version": "3.0.20",
   "author": "Mikael Vesavuori",
