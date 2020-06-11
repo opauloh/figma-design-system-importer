@@ -55,63 +55,72 @@ export function processTokens(sheet, name, config) {
   switch (_NAME) {
     case 'borderwidth':
     case 'borderwidths': {
-      processedTokens = setupBorderWidthTokens(sheet);
+      processedTokens = setupBorderWidthTokens(sheet, config.skipCamelize);
       break;
     }
     case 'color':
     case 'colors':
     case 'colour':
     case 'colours': {
-      processedTokens = setupColorTokens(sheet);
+      processedTokens = setupColorTokens(sheet, config.skipCamelize);
       break;
     }
     case 'fontfamily':
     case 'fontfamilies': {
       if (!config) throw new Error(errorProcessTokensNoConfig);
-      processedTokens = setupFontTokens(sheet, config.usePostscriptFontNames);
+      processedTokens = setupFontTokens(sheet, config.usePostscriptFontNames, config.skipCamelize);
       break;
     }
     case 'fontsize':
     case 'fontsizes': {
       if (!config) throw new Error(errorProcessTokensNoConfig);
-      processedTokens = setupFontSizeTokens(sheet, config.fontUnit, config.remSize);
+      processedTokens = setupFontSizeTokens(
+        sheet,
+        config.fontUnit,
+        config.remSize,
+        config.skipCamelize
+      );
       break;
     }
     case 'fontweight':
     case 'fontweights': {
-      processedTokens = setupFontWeightTokens(sheet);
+      processedTokens = setupFontWeightTokens(sheet, config.skipCamelize);
       break;
     }
     case 'letterspacing':
     case 'letterspacings': {
       if (!config) throw new Error(errorProcessTokensNoConfig);
-      processedTokens = setupLetterSpacingTokens(sheet, config.letterSpacingUnit);
+      processedTokens = setupLetterSpacingTokens(
+        sheet,
+        config.letterSpacingUnit,
+        config.skipCamelize
+      );
       break;
     }
     case 'lineheight':
     case 'lineheights': {
-      processedTokens = setupLineHeightTokens(sheet);
+      processedTokens = setupLineHeightTokens(sheet, config.skipCamelize);
       break;
     }
     case 'mediaquery':
     case 'mediaqueries': {
-      processedTokens = setupMediaQueryTokens(sheet);
+      processedTokens = setupMediaQueryTokens(sheet, config.skipCamelize);
       break;
     }
     case 'opacity':
     case 'opacities': {
       if (!config) throw new Error(errorProcessTokensNoConfig);
-      processedTokens = setupOpacitiesTokens(sheet, config.opacitiesUnit);
+      processedTokens = setupOpacitiesTokens(sheet, config.opacitiesUnit, config.skipCamelize);
       break;
     }
     case 'radius':
     case 'radii': {
-      processedTokens = setupRadiusTokens(sheet);
+      processedTokens = setupRadiusTokens(sheet, config.skipCamelize);
       break;
     }
     case 'shadow':
     case 'shadows': {
-      processedTokens = setupShadowTokens(sheet);
+      processedTokens = setupShadowTokens(sheet, config.skipCamelize);
       break;
     }
     case 'space':
@@ -119,12 +128,17 @@ export function processTokens(sheet, name, config) {
     case 'spacing':
     case 'spacings': {
       if (!config) throw new Error(errorProcessTokensNoConfig);
-      processedTokens = setupSpacingTokens(sheet, config.spacingUnit, config.remSize);
+      processedTokens = setupSpacingTokens(
+        sheet,
+        config.spacingUnit,
+        config.remSize,
+        config.skipCamelize
+      );
       break;
     }
     case 'zindex':
     case 'zindices': {
-      processedTokens = setupZindexTokens(sheet);
+      processedTokens = setupZindexTokens(sheet, config.skipCamelize);
       break;
     }
     case 'duration':
@@ -133,7 +147,7 @@ export function processTokens(sheet, name, config) {
     case 'animation durations':
     case 'motion duration':
     case 'motion durations': {
-      processedTokens = setupDurationTokens(sheet);
+      processedTokens = setupDurationTokens(sheet, config.skipCamelize);
       break;
     }
     case 'delay':
@@ -142,13 +156,13 @@ export function processTokens(sheet, name, config) {
     case 'animation delays':
     case 'motion delay':
     case 'motion delays': {
-      processedTokens = setupDelayTokens(sheet);
+      processedTokens = setupDelayTokens(sheet, config.skipCamelize);
       break;
     }
     case 'easing':
     case 'animation easing':
     case 'motion easing': {
-      processedTokens = setupEasingTokens(sheet);
+      processedTokens = setupEasingTokens(sheet, config.skipCamelize);
       break;
     }
   }

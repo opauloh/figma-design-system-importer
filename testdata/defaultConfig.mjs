@@ -29,5 +29,6 @@ export const defaultConfig = {
     storybook: false,
     description: false,
     forceUpdate: true
-  }
+  },
+  skipCamelize: false
 };

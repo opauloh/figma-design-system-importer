@@ -23,7 +23,7 @@ import {
  * @throws {errorSetupFontSizeTokensMissingProps} - When frame child is missing type.name or type.style
  * @throws {errorSetupFontSizeTokensMissingSize} - When frame child is missing type.style.fontSize
  */
-export function setupFontSizeTokens(fontSizeFrame, fontUnit, remSize) {
+export function setupFontSizeTokens(fontSizeFrame, fontUnit, remSize, skipCamelize) {
   if (!fontSizeFrame) throw new Error(errorSetupFontSizeTokensNoFrame);
   if (!fontSizeFrame.children) throw new Error(errorSetupFontSizeTokensNoChildren);
   if (!fontUnit || !remSize) throw new Error(errorSetupFontSizeTokensNoSizing);
@@ -34,7 +34,7 @@ export function setupFontSizeTokens(fontSizeFrame, fontUnit, remSize) {
     if (!type.name || !type.style) throw new Error(errorSetupFontSizeTokensMissingProps);
     if (!type.style.fontSize) throw new Error(errorSetupFontSizeTokensMissingSize);
 
-    const name = camelize(type.name);
+    const name = skipCamelize ? type.name : camelize(type.name);
     const FONT_SIZE = type.style.fontSize / remSize + fontUnit;
 
     fontSizeObject[name] = FONT_SIZE;

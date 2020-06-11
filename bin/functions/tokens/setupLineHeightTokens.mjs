@@ -20,7 +20,7 @@ import {
  * @throws {errorSetupLineHeightTokensMissingProps} - When missing required props on frame children
  * @throws {errorSetupLineHeightTokensMissingPercent} - When missing type.style.lineHeightPercentFontSize on children
  */
-export function setupLineHeightTokens(lineHeightFrame) {
+export function setupLineHeightTokens(lineHeightFrame, skipCamelize) {
   if (!lineHeightFrame) throw new Error(errorSetupLineHeightTokensNoFrame);
   if (!lineHeightFrame.children) throw new Error(errorSetupLineHeightTokensNoChildren);
 
@@ -31,7 +31,7 @@ export function setupLineHeightTokens(lineHeightFrame) {
     if (!type.style.lineHeightPercentFontSize)
       throw new Error(errorSetupLineHeightTokensMissingPercent);
 
-    const name = camelize(type.name);
+    const name = skipCamelize ? type.name : camelize(type.name);
     const LINE_HEIGHT = normalizeUnits(type.style.lineHeightPercentFontSize, 'percent', 'unitless');
 
     // Do a tiny bit of rounding to avoid ugly numbers

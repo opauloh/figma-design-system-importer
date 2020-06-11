@@ -17,7 +17,7 @@ import {
  * @throws {errorSetupMediaQueryTokensNoChildren} - When no children in Figma frame
  * @throws {errorSetupMediaQueryTokensMissingProps} - When missing required props in frame children
  */
-export function setupMediaQueryTokens(mediaQueryFrame) {
+export function setupMediaQueryTokens(mediaQueryFrame, skipCamelize) {
   if (!mediaQueryFrame) throw new Error(errorSetupMediaQueryTokensNoFrame);
   if (!mediaQueryFrame.children) throw new Error(errorSetupMediaQueryTokensNoChildren);
 
@@ -27,7 +27,7 @@ export function setupMediaQueryTokens(mediaQueryFrame) {
     if (!type.name || !type.absoluteBoundingBox)
       throw new Error(errorSetupMediaQueryTokensMissingProps);
 
-    const name = camelize(type.name);
+    const name = skipCamelize ? type.name : camelize(type.name);
 
     mediaQueryObject[name] = `${type.absoluteBoundingBox.width}px`;
   });

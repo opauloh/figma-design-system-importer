@@ -17,7 +17,7 @@ import {
  * @throws {errorSetupZindexTokensNoChildren} - When no children in Figma frame
  * @throws {errorSetupZindexTokensMissingProps} - When missing required props in children
  */
-export function setupZindexTokens(zIndexFrame) {
+export function setupZindexTokens(zIndexFrame, skipCamelize) {
   if (!zIndexFrame) throw new Error(errorSetupZindexTokensNoFrame);
   if (!zIndexFrame.children) throw new Error(errorSetupZindexTokensNoChildren);
 
@@ -26,7 +26,7 @@ export function setupZindexTokens(zIndexFrame) {
   zIndexFrame.children.forEach((type) => {
     if (!type.name || !type.characters) throw new Error(errorSetupZindexTokensMissingProps);
 
-    const name = camelize(type.name);
+    const name = skipCamelize ? type.name : camelize(type.name);
 
     zindexObject[name] = parseInt(type.characters);
   });

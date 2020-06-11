@@ -16,7 +16,7 @@ import {
  * @throws {errorSetupBorderWidthTokensNoFrame} - When there is no provided Figma frame
  * @throws {errorSetupBorderWidthTokensNoChildren} - When Figma frame is missing children
  */
-export function setupBorderWidthTokens(borderWidthFrame) {
+export function setupBorderWidthTokens(borderWidthFrame, skipCamelize) {
   if (!borderWidthFrame) throw new Error(errorSetupBorderWidthTokensNoFrame);
   if (!borderWidthFrame.children) throw new Error(errorSetupBorderWidthTokensNoChildren);
 
@@ -26,7 +26,7 @@ export function setupBorderWidthTokens(borderWidthFrame) {
     if (!type.name || typeof type.strokeWeight === 'undefined')
       throw new Error(errorSetupBorderWidthTokensMissingProps);
 
-    const name = camelize(type.name);
+    const name = skipCamelize ? type.name : camelize(type.name);
 
     borderWidthObject[name] = `${parseInt(type.strokeWeight, 10)}px`;
   });

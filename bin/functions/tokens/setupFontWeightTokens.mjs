@@ -19,7 +19,7 @@ import {
  * @throws {errorSetupFontWeightTokensMissingProps} - When missing required props on frame children
  * @throws {errorSetupFontWeightTokensMissingWeight} - When missing type.style.fontWeight on child
  */
-export function setupFontWeightTokens(fontWeightFrame) {
+export function setupFontWeightTokens(fontWeightFrame, skipCamelize) {
   if (!fontWeightFrame) throw new Error(errorSetupFontWeightTokensNoFrame);
   if (!fontWeightFrame.children) throw new Error(errorSetupFontWeightTokensNoChildren);
 
@@ -29,7 +29,7 @@ export function setupFontWeightTokens(fontWeightFrame) {
     if (!type.name || !type.style) throw new Error(errorSetupFontWeightTokensMissingProps);
     if (!type.style.fontWeight) throw new Error(errorSetupFontWeightTokensMissingWeight);
 
-    const name = camelize(type.name);
+    const name = skipCamelize ? type.name : camelize(type.name);
     const fontWeight = type.style.fontWeight;
 
     fontWeightObject[name] = fontWeight;

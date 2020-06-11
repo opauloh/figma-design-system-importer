@@ -23,7 +23,7 @@ import {
  * @throws {errorSetupLetterSpacingTokensNoChildren} - When missing children on Figma frame
  * @throws {errorSetupLetterSpacingTokensMissingProps} - When missing required props on frame children
  */
-export function setupLetterSpacingTokens(letterSpacingFrame, letterSpacingUnit) {
+export function setupLetterSpacingTokens(letterSpacingFrame, letterSpacingUnit, skipCamelize) {
   if (!letterSpacingFrame) throw new Error(errorSetupLetterSpacingTokensNoFrame);
   if (!letterSpacingFrame.children) throw new Error(errorSetupLetterSpacingTokensNoChildren);
 
@@ -32,7 +32,7 @@ export function setupLetterSpacingTokens(letterSpacingFrame, letterSpacingUnit) 
     (tokens, type) => {
       if (!type.name || !type.style) throw new Error(errorSetupLetterSpacingTokensMissingProps);
 
-      const name = camelize(type.name);
+      const name = skipCamelize ? type.name : camelize(type.name);
 
       // Assuming Figma API always export the node font-size as an integer in our case
       // https://www.figma.com/plugin-docs/api/TextNode/#fontsize

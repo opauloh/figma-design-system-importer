@@ -17,7 +17,7 @@ import {
  * @throws {errorSetupDurationTokensNoChildren} - When no children in Figma frame
  * @throws {errorSetupDurationTokensMissingProps} - When missing required props in children
  */
-export function setupDurationTokens(durationFrame) {
+export function setupDurationTokens(durationFrame, skipCamelize) {
   if (!durationFrame) throw new Error(errorSetupDurationTokensNoFrame);
   if (!durationFrame.children) throw new Error(errorSetupDurationTokensNoChildren);
 
@@ -26,7 +26,7 @@ export function setupDurationTokens(durationFrame) {
   durationFrame.children.forEach((type) => {
     if (!type.name || !type.characters) throw new Error(errorSetupDurationTokensMissingProps);
 
-    const name = camelize(type.name);
+    const name = skipCamelize ? type.name : camelize(type.name);
 
     durationObject[name] = parseFloat(type.characters);
   });

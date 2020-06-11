@@ -17,7 +17,7 @@ import {
  * @throws {errorSetupDelayTokensNoChildren} - When no children in Figma frame
  * @throws {errorSetupDelayTokensMissingProps} - When missing required props in children
  */
-export function setupDelayTokens(delayFrame) {
+export function setupDelayTokens(delayFrame, skipCamelize) {
   if (!delayFrame) throw new Error(errorSetupDelayTokensNoFrame);
   if (!delayFrame.children) throw new Error(errorSetupDelayTokensNoChildren);
 
@@ -26,7 +26,7 @@ export function setupDelayTokens(delayFrame) {
   delayFrame.children.forEach((type) => {
     if (!type.name || !type.characters) throw new Error(errorSetupDelayTokensMissingProps);
 
-    const name = camelize(type.name);
+    const name = skipCamelize ? type.name : camelize(type.name);
 
     delayObject[name] = parseFloat(type.characters);
   });

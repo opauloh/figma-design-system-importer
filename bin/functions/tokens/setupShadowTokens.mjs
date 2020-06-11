@@ -18,7 +18,7 @@ import {
  * @throws {errorSetupShadowTokensNoChildren} - When missing children in Figma frame
  * @throws {errorSetupShadowTokensMissingProps} - When missing required props in frame children
  */
-export function setupShadowTokens(shadowFrame) {
+export function setupShadowTokens(shadowFrame, skipCamelize) {
   if (!shadowFrame) throw new Error(errorSetupShadowTokensNoFrame);
   if (!shadowFrame.children) throw new Error(errorSetupShadowTokensNoChildren);
 
@@ -27,7 +27,7 @@ export function setupShadowTokens(shadowFrame) {
   shadowFrame.children.forEach((type) => {
     if (!type.name || !type.effects) throw new Error(errorSetupShadowTokensMissingProps);
 
-    const name = camelize(type.name);
+    const name = skipCamelize ? type.name : camelize(type.name);
 
     const effects = type.effects.map((effect) => {
       if (effect.type === 'DROP_SHADOW') return effect;

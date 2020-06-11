@@ -17,7 +17,7 @@ import {
  * @throws {errorSetupRadiusTokensNoChildren} - When missing children in Figma frame
  * @throws {errorSetupRadiusTokensMissingProps} - When missing required props in frame children
  */
-export function setupOpacitiesTokens(opacitiesFrame, opacitiesUnit) {
+export function setupOpacitiesTokens(opacitiesFrame, opacitiesUnit, skipCamelize) {
   if (!opacitiesFrame) throw new Error(errorSetupOpacitiesTokensNoFrame);
   if (!opacitiesFrame.children) throw new Error(errorSetupOpacitiesTokensNoChildren);
 
@@ -29,7 +29,7 @@ export function setupOpacitiesTokens(opacitiesFrame, opacitiesUnit) {
 
       // Note: Figma API does not provide an opacity value if its 100%
       // We will assume it defaults to 1 if undefined.
-      const name = camelize(type.name);
+      const name = skipCamelize ? type.name : camelize(type.name);
       let opacity =
         typeof type.opacity !== 'undefined'
           ? // Keep only 2 decimals of the parsed-to-float value

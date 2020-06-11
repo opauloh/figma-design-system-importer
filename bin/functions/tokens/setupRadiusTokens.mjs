@@ -18,7 +18,7 @@ import {
  * @throws {errorSetupRadiusTokensNoChildren} - When missing children in Figma frame
  * @throws {errorSetupRadiusTokensMissingProps} - When missing required props in frame children
  */
-export function setupRadiusTokens(radiusFrame) {
+export function setupRadiusTokens(radiusFrame, skipCamelize) {
   if (!radiusFrame) throw new Error(errorSetupRadiusTokensNoFrame);
   if (!radiusFrame.children) throw new Error(errorSetupRadiusTokensNoChildren);
 
@@ -27,7 +27,7 @@ export function setupRadiusTokens(radiusFrame) {
   radiusFrame.children.forEach((type) => {
     if (!type.name) throw new Error(errorSetupRadiusTokensMissingProps);
 
-    const name = camelize(type.name);
+    const name = skipCamelize ? type.name : camelize(type.name);
 
     const RADIUS = (() => {
       if (type.cornerRadius)

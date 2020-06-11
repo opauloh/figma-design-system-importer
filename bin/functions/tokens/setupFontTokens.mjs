@@ -18,7 +18,7 @@ import {
  * @throws {errorSetupFontTokensNoChildren} - When Figma frame is missing children
  * @throws {errorSetupFontTokensMissingProps} - When missing required props on frame children
  */
-export function setupFontTokens(fontFrame, usePostscriptFontNames) {
+export function setupFontTokens(fontFrame, usePostscriptFontNames, skipCamelize) {
   if (!fontFrame) throw new Error(errorSetupFontTokensNoFrame);
   if (!fontFrame.children) throw new Error(errorSetupFontTokensNoChildren);
 
@@ -30,7 +30,7 @@ export function setupFontTokens(fontFrame, usePostscriptFontNames) {
     //if (!type.style.fontPostScriptName || !type.style.fontFamily)
     //  throw new Error(errorSetupFontTokensMissingProps);
 
-    const name = camelize(type.name);
+    const name = skipCamelize ? type.name : camelize(type.name);
 
     // Use Postscript font names or the default font family names (without spaces)
     const FONT = usePostscriptFontNames

@@ -17,7 +17,7 @@ import {
  * @throws {errorSetupEasingTokensNoChildren} - When no children in Figma frame
  * @throws {errorSetupEasingTokensMissingProps} - When missing required props in children
  */
-export function setupEasingTokens(easingFrame) {
+export function setupEasingTokens(easingFrame, skipCamelize) {
   if (!easingFrame) throw new Error(errorSetupEasingTokensNoFrame);
   if (!easingFrame.children) throw new Error(errorSetupEasingTokensNoChildren);
 
@@ -26,7 +26,7 @@ export function setupEasingTokens(easingFrame) {
   easingFrame.children.forEach((type) => {
     if (!type.name || !type.characters) throw new Error(errorSetupEasingTokensMissingProps);
 
-    const name = camelize(type.name);
+    const name = skipCamelize ? type.name : camelize(type.name);
 
     easingObject[name] = type.characters.trim();
   });

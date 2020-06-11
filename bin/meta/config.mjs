@@ -30,5 +30,6 @@ export const defaultConfig = {
     templatePathStyled: 'templates/styled.jsx',
     templatePathStorybook: 'templates/story.js'
   },
-  usePostscriptFontNames: false
+  usePostscriptFontNames: false,
+  skipCamelize: false
 };

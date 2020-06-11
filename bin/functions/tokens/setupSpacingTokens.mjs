@@ -4,8 +4,7 @@ import { normalizeUnits } from '../helpers/normalizeUnits.mjs';
 import {
   errorSetupSpacingTokensNoFrame,
   errorSetupSpacingTokensNoChildren,
-  errorSetupSpacingTokensNoUnits,
-  errorSetupSpacingTokensMissingProps
+  errorSetupSpacingTokensNoUnits
 } from '../../meta/errors.mjs';
 
 /**
@@ -22,7 +21,7 @@ import {
  * @throws {errorSetupSpacingTokensNoUnits} - When missing spacingUnit or remSize arguments
  * @throws {errorSetupSpacingTokensMissingProps} - When missing spacing.name or spacing.absoluteBoundingBox in spacing/children
  */
-export function setupSpacingTokens(spacingFrame, spacingUnit, remSize) {
+export function setupSpacingTokens(spacingFrame, spacingUnit, remSize, skipCamelize) {
   if (!spacingFrame) throw new Error(errorSetupSpacingTokensNoFrame);
   if (!spacingFrame.children) throw new Error(errorSetupSpacingTokensNoChildren);
   if (!spacingUnit || !remSize) throw new Error(errorSetupSpacingTokensNoUnits);
@@ -35,7 +34,7 @@ export function setupSpacingTokens(spacingFrame, spacingUnit, remSize) {
     //if (!spacing.name || !spacing.absoluteBoundingBox)
     //  throw new Error(errorSetupSpacingTokensMissingProps);
 
-    const name = camelize(spacing.name);
+    const name = skipCamelize ? spacing.name : camelize(spacing.name);
 
     const NORMALIZED_UNIT = normalizeUnits(
       spacing.absoluteBoundingBox.width,

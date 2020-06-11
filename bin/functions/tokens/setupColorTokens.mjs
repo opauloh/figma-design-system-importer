@@ -17,7 +17,7 @@ import {
  * @throws {errorSetupColorTokensNoFrame} - When there is no provided Figma frame
  * @throws {errorSetupColorTokensNoChildren} - When Figma frame is missing children
  */
-export function setupColorTokens(colorFrame) {
+export function setupColorTokens(colorFrame, skipCamelize) {
   if (!colorFrame) throw new Error(errorSetupColorTokensNoFrame);
   if (!colorFrame.children) throw new Error(errorSetupColorTokensNoChildren);
 
@@ -41,7 +41,7 @@ export function setupColorTokens(colorFrame) {
       255
     )}, ${roundColorValue(color.fills[0].color.b, 255)}, ${roundColorValue(ALPHA, 1)})`;
 
-    const name = camelize(color.name);
+    const name = skipCamelize ? color.name : camelize(color.name);
 
     colors[name] = COLOR_STRING;
   });
