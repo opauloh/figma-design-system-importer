@@ -8,6 +8,9 @@
     "tokens",
     "design system"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/opauloh/figma-react-design-system"
