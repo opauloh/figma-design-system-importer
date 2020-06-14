@@ -5,9 +5,9 @@ import { fontFrame } from '../testdata/fontFrame.mjs';
 test('It should return a complete object when passing in valid input', () => {
   expect(setupFontTokens(fontFrame)).toEqual(
     expect.objectContaining({
-      light: 'HelveticaNeue',
-      medium: 'HelveticaNeue',
-      regular: 'HelveticaNeue'
+      light: 'Font Light',
+      medium: 'Font Medium',
+      regular: 'Font Regular'
     })
   );
 });

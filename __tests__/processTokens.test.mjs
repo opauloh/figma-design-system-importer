@@ -60,9 +60,9 @@ test('It should return data when passed valid spacing frame and valid settings',
 test('It should return data when passed valid font families frame and valid settings', () => {
   expect(processTokens(fontFrame, 'fontfamilies', defaultConfig)).toEqual(
     expect.objectContaining({
-      light: 'HelveticaNeue',
-      medium: 'HelveticaNeue',
-      regular: 'HelveticaNeue'
+      light: 'Font Light',
+      medium: 'Font Medium',
+      regular: 'Font Regular'
     })
   );
 });
