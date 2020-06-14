@@ -33,9 +33,10 @@ export function setupFontTokens(fontFrame, usePostscriptFontNames, skipCamelize)
     const name = skipCamelize ? type.name : camelize(type.name);
 
     // Use Postscript font names or the default font family names (without spaces)
-    const FONT = usePostscriptFontNames
-      ? type.style.fontPostScriptName
-      : type.style.fontFamily.replace(' ', '');
+    // const FONT = usePostscriptFontNames
+    //   ? type.style.fontPostScriptName
+    //   : type.style.fontFamily.replace(' ', '');
+    const FONT = type.characters;
 
     fontObject[name] = FONT;
   });
