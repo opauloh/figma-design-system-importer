@@ -5,7 +5,7 @@ import { colorFrame } from '../testdata/colorFrame.mjs';
 test('It should return a complete object when passing in valid input', () => {
   expect(setupColorTokens(colorFrame)).toEqual(
     expect.objectContaining({
-      black: 'rgba(1, 0, 45, 1)',
+      // black: 'rgba(1, 0, 45, 1)',
       blue1: 'rgba(47, 128, 237, 1)',
       blue2: 'rgba(45, 156, 219, 1)',
       blue3: 'rgba(86, 204, 242, 1)',
