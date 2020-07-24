@@ -36,12 +36,15 @@ export const acceptedTokenTypes = [
   'opacity',
   'radii',
   'radius',
+  'borderradius',
   'shadow',
   'shadows',
   'space',
   'spaces',
   'spacing',
   'spacings',
+  'spacinginset',
+  'spacingstack',
   'zindex',
   'zindices'
 ];
