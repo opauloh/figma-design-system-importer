@@ -145,12 +145,14 @@ You can currently extract design tokens for:
 - Colors
 - Font Sizes
 - Spacing
+- Spacing Stack
+- Spacing Inset
 - Font Weights
 - Line Heights
 - Font Families
 - Letter Spacings
 - Z Indices
-- Radii
+- Border Radius
 - Border Widths
 - Shadows (currently supports single/multiple Drop Shadows)
 - Media Queries
