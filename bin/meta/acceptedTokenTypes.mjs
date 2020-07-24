@@ -43,8 +43,9 @@ export const acceptedTokenTypes = [
   'spaces',
   'spacing',
   'spacings',
-  'spacinginset',
   'spacingstack',
+  'spacinginset',
+  'spacinginline',
   'zindex',
   'zindices'
 ];
