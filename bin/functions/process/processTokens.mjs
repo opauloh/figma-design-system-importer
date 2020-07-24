@@ -128,6 +128,7 @@ export function processTokens(sheet, name, config) {
     case 'spaces':
     case 'spacing':
     case 'spacinginset':
+    case 'spacinginline':
     case 'spacings': {
       if (!config) throw new Error(errorProcessTokensNoConfig);
       processedTokens = setupSpacingTokens(
