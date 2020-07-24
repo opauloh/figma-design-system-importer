@@ -21,7 +21,13 @@ import {
  * @throws {errorSetupSpacingTokensNoUnits} - When missing spacingUnit or remSize arguments
  * @throws {errorSetupSpacingTokensMissingProps} - When missing spacing.name or spacing.absoluteBoundingBox in spacing/children
  */
-export function setupSpacingTokens(spacingFrame, spacingUnit, remSize, skipCamelize) {
+export function setupSpacingTokens(
+  spacingFrame,
+  spacingUnit,
+  remSize,
+  skipCamelize,
+  measure = 'width'
+) {
   if (!spacingFrame) throw new Error(errorSetupSpacingTokensNoFrame);
   if (!spacingFrame.children) throw new Error(errorSetupSpacingTokensNoChildren);
   if (!spacingUnit || !remSize) throw new Error(errorSetupSpacingTokensNoUnits);
@@ -37,7 +43,7 @@ export function setupSpacingTokens(spacingFrame, spacingUnit, remSize, skipCamel
     const name = skipCamelize ? spacing.name : camelize(spacing.name);
 
     const NORMALIZED_UNIT = normalizeUnits(
-      spacing.absoluteBoundingBox.width,
+      spacing.absoluteBoundingBox[measure],
       'px',
       spacingUnit,
       remSize

@@ -113,6 +113,7 @@ export function processTokens(sheet, name, config) {
       processedTokens = setupOpacitiesTokens(sheet, config.opacitiesUnit, config.skipCamelize);
       break;
     }
+    case 'borderradius':
     case 'radius':
     case 'radii': {
       processedTokens = setupRadiusTokens(sheet, config.skipCamelize);
@@ -126,6 +127,7 @@ export function processTokens(sheet, name, config) {
     case 'space':
     case 'spaces':
     case 'spacing':
+    case 'spacinginset':
     case 'spacings': {
       if (!config) throw new Error(errorProcessTokensNoConfig);
       processedTokens = setupSpacingTokens(
@@ -133,6 +135,17 @@ export function processTokens(sheet, name, config) {
         config.spacingUnit,
         config.remSize,
         config.skipCamelize
+      );
+      break;
+    }
+    case 'spacingstack': {
+      if (!config) throw new Error(errorProcessTokensNoConfig);
+      processedTokens = setupSpacingTokens(
+        sheet,
+        config.spacingUnit,
+        config.remSize,
+        config.skipCamelize,
+        'height'
       );
       break;
     }
