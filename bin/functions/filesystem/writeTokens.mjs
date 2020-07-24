@@ -25,7 +25,10 @@ export async function writeTokens(tokens, config) {
 
   const tokensToProcess = new Promise((resolve, reject) => {
     try {
-      tokens.forEach(async (token) => {
+      let scannedTokens = [];
+      tokens.forEach((token) => scanTokens(token).forEach((token) => scannedTokens.push(token)));
+
+      scannedTokens.forEach(async (token) => {
         const tokenName = camelize(token.name);
 
         if (acceptedTokenTypes.includes(tokenName.toLowerCase())) {
@@ -51,4 +54,17 @@ export async function writeTokens(tokens, config) {
   });
 
   return tokensToProcess.catch((error) => console.error(error));
+}
+
+function scanTokens(token, arr = []) {
+  if (token && token.type && token.type === 'FRAME' && token.children)
+    token.children.forEach((tokenChildren) => scanTokens(tokenChildren, arr));
+
+  if (token && token.name && token.children) {
+    const tokenName = camelize(token.name);
+
+    if (acceptedTokenTypes.includes(tokenName.toLowerCase())) arr.push(token);
+  }
+
+  return arr;
 }
